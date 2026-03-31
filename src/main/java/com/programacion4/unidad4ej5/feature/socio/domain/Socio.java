@@ -21,6 +21,8 @@ public class Socio {
     private String apellido;
     private String email;
     private String dni;
+    private String urlFoto;
+    private String alias;
 
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;

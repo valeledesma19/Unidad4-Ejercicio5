@@ -2,6 +2,7 @@ package com.programacion4.unidad4ej5.feature.socio.service;
 
 import com.programacion4.unidad4ej5.feature.socio.domain.Socio;
 import com.programacion4.unidad4ej5.feature.socio.dtos.request.SocioCreateRequestDto;
+import com.programacion4.unidad4ej5.feature.socio.dtos.request.SocioUpdateDto;
 import com.programacion4.unidad4ej5.feature.socio.dtos.response.SocioResponseDto;
 import com.programacion4.unidad4ej5.feature.socio.mappers.SocioMapper;
 import com.programacion4.unidad4ej5.feature.socio.repository.SocioRepository;
@@ -41,4 +42,19 @@ public class SocioService implements ISocioService {
     private boolean esMayorDeEdad(LocalDate fechaNacimiento) {
         return Period.between(fechaNacimiento, LocalDate.now()).getYears() >= 18;
     }
-}
+    public SocioResponseDto actualizarPerfil(SocioUpdateDto request) {
+        Socio socio = socioRepository.findById(request.getId())
+                .orElseThrow(() -> new IllegalArgumentException("No existe un socio con el ID: " + request.getId()));
+
+
+        if (request.getEmail() != null) socio.setEmail(request.getEmail());
+        if (request.getTelefono() != null) socio.setTelefono(request.getTelefono());
+        if (request.getUrlFoto() != null) socio.setUrlFoto(request.getUrlFoto());
+        if (request.getAlias() != null) socio.setAlias(request.getAlias());
+
+
+        Socio socioActualizado = socioRepository.save(socio);
+
+
+        return null;
+}}
